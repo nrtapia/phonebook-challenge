@@ -68,3 +68,9 @@ body {
 .fa {
 	padding-right:10px;
 }
+
+.box-auto-heigth{
+	min-height: 300px !important;
+	height: auto !important;
+	padding-bottom: 10px !important;
+}

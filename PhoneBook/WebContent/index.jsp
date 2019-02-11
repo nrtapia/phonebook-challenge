@@ -7,6 +7,9 @@
 	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/styles.css">
+	<script>
+		const API_HOST = "<%=request.getAttribute("API_HOST") %>"; 
+	</script>
 </head>
 <body>
 	<div class="container">
@@ -25,11 +28,11 @@
 		    		<h2><i class="fa fa-user-plus"></i>New contact</h2>
 		    		<form class="pure-form">
 					    <fieldset class="pure-group">
-					        <input type="text" class="pure-input-1-2" placeholder="First Name">
-					        <input type="text" class="pure-input-1-2" placeholder="Last Name">
-					        <input type="email" class="pure-input-1-2" placeholder="Phone">
+					        <input type="text" class="pure-input-1-2" placeholder="First Name" id="firstName-input" maxlength="60">
+					        <input type="text" class="pure-input-1-2" placeholder="Last Name" id="lastName-input" maxlength="60">
+					        <input type="text" class="pure-input-1-2" placeholder="Phone" id="phone-input"  maxlength="10">
 					    </fieldset>
-					    <button type="submit" class="pure-button pure-input-1-2 pure-button-primary">
+					    <button type="submit" class="pure-button pure-input-1-2 pure-button-primary" id="add-button">
 					    <i class="fa fa-user-plus"></i>Add</button>
 					</form>
 				</div>
@@ -39,15 +42,15 @@
 		    		<h2><i class="fa fa-search"></i>Search contact</h2>
 		    		<form class="pure-form">
 		    			<fieldset class="pure-group">
-					    	<input type="text" class="pure-input-1-2">
+					    	<input type="text" class="pure-input-1-2" id="search-input">
 					     </fieldset>
-					    <button type="submit" class="pure-button pure-input-1-2 pure-button-primary">
+					    <button type="button" id="search-btn" class="pure-button pure-input-1-2 pure-button-primary">
 					    <i class="fa fa-search"></i>Search</button>
 					</form>
 				</div>
 			</div>
 			<div class="pure-u-sm-1 pure-u-1-3">
-				<div class="box">
+				<div class="box box-auto-heigth">
 		    		<h2><i class="fa fa-users"></i> Contacts</h2>
 	    			<table class="pure-table">
 					    <thead>
@@ -58,29 +61,30 @@
 					        </tr>
 					    </thead>
 					
-					    <tbody>
-					        <tr>
-					            <td>Arun</td>
-					            <td>Kart</td>
-					            <td>415-8679089</td>
-					        </tr>
-					
-					        <tr>
-					            <td>Juan</td>
-					            <td>Torus</td>
-					            <td>301-2390930</td>
-					        </tr>
-					
-					        <tr>
-					            <td>Nolux</td>
-					            <td>Fernandez</td>
-					            <td>310-2930291</td>
-					        </tr>
+					    <tbody id="contact-table-body">
+					       
 					    </tbody>
 					</table>
 				</div>
 			</div>
 		</div>
 	</div>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js" ></script>
+	<script src="js/ContactService.js" ></script>
+	<script src="js/ContactController.js" ></script>
+	<script src="js/phonebook.js" ></script>
+
+	<script id="contact-row-template" type="text/x-handlebars-template">
+		{{#each this}}
+  		<tr>
+			<td>{{firstName}}</td>
+			<td>{{lastName}}</td>
+			<td>{{phone}}</td>
+		</tr>
+		{{else}}
+			<tr><td colspan="3">No records found.</td></tr>
+		{{/each}}
+	</script>
 </body>
 </html>
